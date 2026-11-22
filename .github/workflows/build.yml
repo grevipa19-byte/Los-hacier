@@ -1,0 +1,20 @@
+name: Build IPA
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descomprimir y Compilar
+        run: |
+          unzip -o *.zip -d proyecto
+          cd proyecto
+          xcodebuild -project ThreeOneOSFive.xcodeproj -scheme 3105 -sdk iphoneos -configuration Release CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" BUILD_DIR=$PWD/build
+          mkdir -p Payload
+          cp -r build/Release-iphoneos/*.app Payload/
+          zip -r ThreeOneOSFive.ipa Payload
+      - name: Subir IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: ThreeOneOSFive-IPA
+          path: proyecto/ThreeOneOSFive.ipa
