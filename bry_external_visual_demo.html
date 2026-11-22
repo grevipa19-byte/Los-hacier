@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b12">
+<title>EXTERNAL • Aim Panel</title>
+<style>
+:root{color-scheme:dark;--bg:#090b12;--panel:#111522;--line:#252c3d;--muted:#8e98ad;--cyan:#4de4ff;--violet:#9b70ff;--green:#63f5b0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#20264a 0,transparent 48%),var(--bg);font:15px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;color:#f4f6ff;min-height:100vh;padding:22px 14px 40px}
+.wrap{max-width:440px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.brand{font-weight:900;letter-spacing:2.5px;font-size:19px}.brand span{color:var(--cyan)}.status{font-size:10px;color:var(--green);border:1px solid #286b55;padding:6px 9px;border-radius:20px;letter-spacing:1px}
+.panel{background:linear-gradient(160deg,#171d2d,#0e121d 70%);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 18px 55px #0008}
+.hero{padding:20px 16px;text-align:center;border-radius:16px;background:linear-gradient(120deg,#162b42,#24183d);border:1px solid #35405c;margin-bottom:16px}
+.hero small{color:#aebbd1;letter-spacing:2px;font-size:10px}.hero h1{margin:7px 0 4px;font-size:27px;letter-spacing:2px}.hero p{margin:0;color:#aeb8cc;font-size:12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0}
+label,.section-title{font-weight:700;font-size:13px}.hint{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+select{width:100%;background:#0b101b;color:#f5f7ff;border:1px solid #303a50;border-radius:11px;padding:13px;font:inherit;outline:none}
+.section-title{color:var(--cyan);letter-spacing:1.4px;font-size:11px;margin:20px 0 10px}
+.option{padding:13px 12px;border:1px solid #252d40;border-radius:13px;background:#0c111c;margin:9px 0;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.option strong{font-size:13px}.option small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.switch{appearance:none;width:43px;height:25px;border-radius:20px;background:#333c50;position:relative;flex:none;cursor:pointer;transition:.2s}
+.switch:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;border-radius:50%;background:white;transition:.2s}
+.switch:checked{background:linear-gradient(90deg,var(--cyan),var(--violet))}.switch:checked:before{transform:translateX(18px)}
+.btns{display:flex;gap:10px;margin-top:18px}.btn{flex:1;border:0;border-radius:12px;padding:14px;font-weight:900;letter-spacing:1px;cursor:pointer}
+.primary{background:linear-gradient(100deg,var(--cyan),#8d7bff);color:#07101a}.secondary{background:#20283a;color:#e9edff;border:1px solid #35405a}
+.note{font-size:10px;color:#8490a7;text-align:center;margin:16px 5px 0}.toast{min-height:18px;text-align:center;color:var(--green);font-size:11px;margin-top:12px}
+footer{text-align:center;color:#657087;font-size:10px;margin:16px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="top"><div class="brand">BRY<span>•</span>EXTERNAL</div><div class="status">● VISUAL DEMO</div></div>
+ <main class="panel">
+  <div class="hero"><small>INDEPENDENT CONTROL PANEL</small><h1>AIM PANEL</h1><p>Interfaz visual independiente · No se conecta al juego</p></div>
+  <div class="section-title">01 / SELECTOR DE JUEGO</div>
+  <label for="game">Elige tu versión de Free Fire</label>
+  <select id="game"><option>Free Fire</option><option>Free Fire MAX</option></select>
+  <div class="section-title">02 / CONFIGURACIÓN VISUAL</div>
+  <div class="option"><div><strong>Aim Pecho</strong><small>Vista de demostración</small></div><input class="switch" type="checkbox" aria-label="Aim Pecho visual"></div>
+  <div class="option"><div><strong>Antena</strong><small>Indicador visual de ejemplo</small></div><input class="switch" type="checkbox" aria-label="Antena visual"></div>
+  <div class="option"><div><strong>Panel flotante</strong><small>Simulación dentro de esta página</small></div><input class="switch" type="checkbox" checked aria-label="Panel flotante visual"></div>
+  <div class="section-title">03 / ESTADO DEL PANEL</div>
+  <div class="row"><div><label>Modo de interfaz</label><span class="hint">Solo controles de demostración</span></div><strong style="color:var(--green);font-size:11px">INDEPENDIENTE</strong></div>
+  <div class="btns"><button class="btn primary" id="open">OPEN PANEL</button><button class="btn secondary" id="reset">RESET</button></div>
+  <div class="toast" id="toast" aria-live="polite"></div>
+  <p class="note">Este panel no apunta automáticamente, no modifica Free Fire y no funciona como overlay del sistema. Los interruptores solo cambian su estado visual.</p>
+ </main>
+ <footer>BRY EXTERNAL UI · iOS FRIENDLY WEB DEMO</footer>
+</div>
+<script>
+const toast=document.getElementById('toast');
+document.getElementById('open').addEventListener('click',()=>{toast.textContent='Panel visual abierto · '+document.getElementById('game').value;});
+document.getElementById('reset').addEventListener('click',()=>{document.querySelectorAll('.switch').forEach((s,i)=>s.checked=i===2);document.getElementById('game').selectedIndex=0;toast.textContent='Opciones visuales restablecidas';});
+document.querySelectorAll('.switch').forEach(s=>s.addEventListener('change',()=>{toast.textContent='Estado visual actualizado';}));
+</script>
+</body></html>
